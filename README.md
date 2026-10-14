@@ -1,5 +1,9 @@
 # Sabel Threat Detection
 
+![Sabel Threat Detection window (sample results)](docs/screenshot.png)
+
+**[Download the latest release](https://github.com/imnathaniel28/Sabel_Threat_Detection/releases/latest)**, unzip it or clone the repo, and double-click `Sabel_Threat_Detection.exe`. Keep the `.exe` inside the project folder, because it needs the `src` folder next to it.
+
 A **read-only** security check for Windows that runs in the terminal. It looks at your PC once a day, **plays a tune if something needs your attention**, and explains in plain language what each finding means and what *you* can do about it.
 
 Sabel Threat Detection itself **never** deletes, quarantines, "cleans", or changes anything. The only files it writes are its own reports in `%LOCALAPPDATA%\Sabel_Threat_Detection`. The only system change it makes is the daily scheduled task, and only when you run `sabel install`.
