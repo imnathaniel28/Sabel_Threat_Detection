@@ -59,6 +59,9 @@ Write-Host "Icon written: $icoPath"
 $csc = Join-Path $env:windir 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
 if (-not (Test-Path $csc)) { $csc = Join-Path $env:windir 'Microsoft.NET\Framework\v4.0.30319\csc.exe' }
 $out = Join-Path $root 'Sabel_Threat_Detection.exe'
-& $csc /nologo /target:winexe /platform:anycpu /optimize+ "/win32icon:$icoPath" "/out:$out" /r:System.Windows.Forms.dll (Join-Path $PSScriptRoot 'Launcher.cs')
+# Embed the app so the .exe works as a single download (unpacked to %LOCALAPPDATA% on first run).
+$embed = @('Sabel.ps1', 'sabel.cmd', 'README.md', 'LICENSE', 'assets\sabel.ico') + @(Get-ChildItem (Join-Path $root 'src') -Filter *.ps1 | ForEach-Object { "src\$($_.Name)" })
+$resources = foreach ($rel in $embed) { "/resource:$(Join-Path $root $rel),app/$($rel -replace '\\', '/')" }
+& $csc /nologo /target:winexe /platform:anycpu /optimize+ "/win32icon:$icoPath" "/out:$out" /r:System.Windows.Forms.dll @resources (Join-Path $PSScriptRoot 'Launcher.cs')
 if ($LASTEXITCODE -ne 0) { throw "Compiler failed ($LASTEXITCODE)" }
 Write-Host "Launcher built: $out"

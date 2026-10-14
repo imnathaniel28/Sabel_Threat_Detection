@@ -2,7 +2,11 @@
 
 ![Sabel Threat Detection window (sample results)](docs/screenshot.png)
 
-**[Download the latest release](https://github.com/imnathaniel28/Sabel_Threat_Detection/releases/latest)**, unzip it or clone the repo, and double-click `Sabel_Threat_Detection.exe`. Keep the `.exe` inside the project folder, because it needs the `src` folder next to it.
+**[Download `Sabel_Threat_Detection.exe`](https://github.com/imnathaniel28/Sabel_Threat_Detection/releases/latest)** and double-click it. That's all: it's a single file with nothing to install.
+
+The scripts are packed inside the `.exe`. On first run it unpacks them as plain, readable files to `%LOCALAPPDATA%\Sabel_Threat_Detection\app` and runs them from there. If you cloned the repo instead, the `.exe` runs the scripts in the repo's `src` folder.
+
+Because the `.exe` isn't code-signed, Windows may show "Windows protected your PC" the first time. Click **More info > Run anyway**, or build it yourself with `tools\Build-Launcher.ps1`.
 
 A **read-only** security check for Windows that runs in the terminal. It looks at your PC once a day, **plays a tune if something needs your attention**, and explains in plain language what each finding means and what *you* can do about it.
 
@@ -14,13 +18,13 @@ If you decide to act on a finding, Sabel Threat Detection can **ask Microsoft De
 
 ## The window (double-click)
 
-Double-click **`Sabel_Threat_Detection.exe`** in this folder. A window opens showing:
+Double-click **`Sabel_Threat_Detection.exe`**. A window opens showing:
 - the result of the last check and a list of findings (double-click one for details and advice)
 - buttons to run a check, ask Microsoft Defender to scan or remove threats, and turn the daily check on or off
 
 Every button opens its own **pop-up terminal** where the results appear. All two-step confirmations happen there too. The window refreshes when a pop-up closes or when the daily check produces a new report. Tick **"Open windows as administrator"** for full coverage, or to let Defender remove threats.
 
-`Sabel_Threat_Detection.exe` is a tiny launcher that only starts `src\Gui.ps1` without leaving an empty console window open. Its source is `tools\Launcher.cs`, and `tools\Build-Launcher.ps1` rebuilds it and the icon. You can right-click it and choose **Send to > Desktop (create shortcut)**.
+`Sabel_Threat_Detection.exe` is a small launcher with the scripts embedded. It unpacks them if needed, then starts `src\Gui.ps1` without leaving an empty console window open. Its source is `tools\Launcher.cs`, and `tools\Build-Launcher.ps1` rebuilds it and the icon. You can right-click it and choose **Send to > Desktop (create shortcut)**.
 
 ## Quick start (terminal)
 
@@ -118,7 +122,7 @@ The task runs in your own logged-in session, so you can hear the tune and see th
 ## Files
 
 ```
-Sabel_Threat_Detection.exe           double-click launcher for the window (built from tools\Launcher.cs)
+Sabel_Threat_Detection.exe           single-file app: embedded scripts + launcher (built from tools\Launcher.cs)
 src/Gui.ps1                 the window (Windows Forms; actions open in pop-up terminals)
 assets/sabel.ico            app icon
 tools/Build-Launcher.ps1    rebuilds the icon and the .exe
